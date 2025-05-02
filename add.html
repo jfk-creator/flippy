@@ -1,45 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>+ Lernsethinzfügen</title>
-    <link rel="stylesheet" href="style/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-</head>
-
-<body>
+  <body>
     <a href="index.html">
-        <h1>Flippy</h1>
+      <h1>Flippy</h1>
     </a>
-    <p>Name des Lernsets: </p>
+    <p>Name des Lernsets:</p>
     <input id="inp" type="text" autocomplete="off" />
     <button id="add" type="submit">+ Lernset hinzufügen</button>
     <script>
-        const addButton = document.getElementById("add");
-        const input = document.getElementById("inp")
-        let lernsetName = "";
+      const addButton = document.getElementById("add");
+      const input = document.getElementById("inp");
+      let lernsetName = "";
 
-        addButton.addEventListener("click", () => {
-            lernsetName = input.value;
-            if (lernsetName != "") {
-                let lernsets = JSON.parse(localStorage.getItem("Lernsets"));
-                if (lernsets) {
-                    lernsets.push(lernsetName);
-                } else {
-                    lernsets = [];
-                    lernsets.push(lernsetName);
-                }
-                localStorage.setItem("Lernsets", JSON.stringify(lernsets));
-                window.location.assign(`./edit.html?lernset=${lernsetName}`);
-            } else {
-                console.error("lernsetname is empty")
-            }
-
-        })
+      addButton.addEventListener("click", () => {
+        lernsetName = input.value;
+        if (lernsetName != "") {
+          let lernsets = JSON.parse(localStorage.getItem("Lernsets"));
+          if (lernsets) {
+            let unique = true;
+            lernsets.forEach((name) => {
+              if (name === lernsetName) {
+                unique = false;
+              }
+            });
+            if (unique) lernsets.push(lernsetName);
+          } else {
+            lernsets = [];
+            lernsets.push(lernsetName);
+          }
+          localStorage.setItem("Lernsets", JSON.stringify(lernsets));
+          window.location.assign(`./edit.html?lernset=${lernsetName}`);
+        } else {
+          console.error("lernsetname is empty");
+        }
+      });
     </script>
-</body>
-
+  </body>
 </html>

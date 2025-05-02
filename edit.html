@@ -1,92 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>/ bearbeiten</title>
-    <link rel="stylesheet" href="style/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&amp;display=swap" rel="stylesheet">
-</head>
+    <link rel="stylesheet" href="style/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&amp;display=swap"
+    />
+  </head>
 
-<body>
-    <h1>Flippy</h1>
+  <body>
+    <a href="index.html">
+      <h1>Flippy</h1>
+    </a>
     <div id="cardWrapper"></div>
     <button id="addCard">+ Add Card</button>
 
     <script>
-        const cardsWrapper = document.getElementById("cardWrapper");
-        const addCard = document.getElementById("addCard");
-        const urlParams = new URLSearchParams(window.location.search);
-        const lernsetName = urlParams.get('lernset');
-        const lernsetCards = localStorage.getItem(`${lernsetName}`);
-        let firstFocus = false;
-        let card = {
-            quest: "Is this a question?",
-            answ: "Yes, and this is the answer."
+      const cardsWrapper = document.getElementById("cardWrapper");
+      const addCard = document.getElementById("addCard");
+      const urlParams = new URLSearchParams(window.location.search);
+      const lernsetName = urlParams.get("lernset");
+      const lernsetCards = localStorage.getItem(`${lernsetName}`);
+      let firstFocus = false;
+      let card = {
+        quest: "Is this a question?",
+        answ: "Yes, and this is the answer.",
+      };
+
+      document.title = lernsetName;
+      let cards = [];
+      if (lernsetName && lernsetName != "") {
+        let storedCards = localStorage.getItem(lernsetName);
+        if (storedCards) {
+          cards = JSON.parse(storedCards);
+        } else {
+          cards.push(card);
         }
-        let cards = [];
-        if (lernsetName && lernsetName != "") {
-            let storedCards = localStorage.getItem(lernsetName);
-            if (storedCards) {
-                cards = JSON.parse(storedCards);
-            } else {
-                cards.push(card)
-            }
+      }
+
+      cards.forEach((rcard) => {
+        appendCard(rcard);
+      });
+
+      addCard.addEventListener("click", () => {
+        let newCard = {
+          quest: "Is this a question?",
+          answ: "Yes, and this is the answer.",
+        };
+        cards.push(newCard);
+        localStorage.setItem(lernsetName, JSON.stringify(cards));
+        appendCard(newCard);
+      });
+
+      function appendCard(rcard) {
+        let cardWrapper = document.createElement("div");
+        cardWrapper.className = "card";
+        let quest = document.createElement("textarea");
+        quest.innerText = rcard.quest;
+        let answ = document.createElement("textarea");
+        answ.innerText = rcard.answ;
+        let questCard = cardWrapper.appendChild(quest);
+        let answCard = cardWrapper.appendChild(answ);
+
+        cardsWrapper.appendChild(cardWrapper);
+        if (!firstFocus) {
+          questCard.focus();
         }
+        questCard.addEventListener("input", () => {
+          saveCards();
+        });
+        answCard.addEventListener("input", () => {
+          saveCards();
+        });
+      }
 
-        cards.forEach((rcard) => {
-            appendCard(rcard)
-        })
-
-        addCard.addEventListener("click", () => {
-            let newCard = {
-                quest: "Is this a question?",
-                answ: "Yes, and this is the answer."
-            }
-            cards.push(newCard);
-            localStorage.setItem(lernsetName, JSON.stringify(cards))
-            appendCard(newCard);
-        })
-
-        function appendCard(rcard) {
-            let cardWrapper = document.createElement('div');
-            cardWrapper.className = "card";
-            let quest = document.createElement('textarea');
-            quest.innerText = rcard.quest;
-            let answ = document.createElement('textarea');
-            answ.innerText = rcard.answ;
-            let questCard = cardWrapper.appendChild(quest);
-            let answCard = cardWrapper.appendChild(answ);
-
-            cardsWrapper.appendChild(cardWrapper);
-            if (!firstFocus) {
-                questCard.focus();
-            }
-            questCard.addEventListener("input", () => {
-                saveCards();
-            })
-            answCard.addEventListener("input", () => {
-                saveCards();
-            })
+      function saveCards() {
+        const onCards = document.getElementsByClassName("card");
+        cards = [];
+        for (let i = 0; i < onCards.length; i++) {
+          let childCards = onCards[i].children;
+          let quest = childCards[0].value;
+          let answ = childCards[1].value;
+          let wCard = {
+            quest: quest,
+            answ: answ,
+          };
+          cards.push(wCard);
         }
-
-        function saveCards() {
-            const onCards = document.getElementsByClassName("card");
-            cards = [];
-            for (let i = 0; i < onCards.length; i++) {
-                let childCards = onCards[i].children;
-                let quest = childCards[0].value;
-                let answ = childCards[1].value;
-                let wCard = {
-                    quest: quest,
-                    answ: answ
-                };
-                cards.push(wCard);
-            }
-            localStorage.setItem(`${lernsetName}`, JSON.stringify(cards))
-        }
+        localStorage.setItem(`${lernsetName}`, JSON.stringify(cards));
+      }
     </script>
-</body>
-
+  </body>
 </html>

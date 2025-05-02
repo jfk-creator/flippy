@@ -1,163 +1,136 @@
 :root {
-    --night: #1A1B26;
-    --white: rgb(229, 240, 244);
-    --red: #FF757F;
-    --green: #9ECE6A;
-    --gold: #EFB662;
-    --lightBlue: #7DCFFF;
-    --blue: #7AA2F7;
+  --night: #1a1b26;
+  --white: rgb(229, 240, 244);
+  --red: #ff757f;
+  --green: #9ece6a;
+  --gold: #efb662;
+  --lightBlue: #7dcfff;
+  --blue: #7aa2f7;
 }
 
 body {
-    background-color: var(--night);
-    color: var(--white);
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    overflow: hidden;
-    font-family: Geologica;
+  background-color: var(--night);
+  color: var(--white);
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: Geologica;
 }
 
 a {
-    color: var(--white);
-    text-decoration: none;
+  color: var(--white);
+  text-decoration: none;
 }
 
 a:visited {
-    color: var(--white);
-    text-decoration: none;
+  color: var(--white);
+  text-decoration: none;
 }
 
 h1 {
-    font-size: 3rem;
-    margin-bottom: 50;
+  font-size: 3rem;
+  margin-bottom: 50;
 }
 
 button {
-    background-color: var(--blue);
-    color: var(--white);
-    font-size: 2rem;
-    border: none;
-    margin: 10px;
-    cursor: pointer;
+  background-color: var(--blue);
+  color: var(--white);
+  font-size: 2rem;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
 }
 
 #cardWrapper {
-    background-color: var(--night);
-    color: var(--white);
-    display: flex;
-    width: 80vw;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    overflow: hidden;
-    font-family: Geologica;
+  background-color: var(--night);
+  color: var(--white);
+  font-family: Geologica;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  width: 80vw;
+}
+
+.lernset {
+  background-color: var(--blue);
+  margin: 25px;
+  padding: 15px 25px;
+  border-radius: 25px;
+}
+#lernSet {
+  background-color: var(--blue);
 }
 
 .card {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
-
-/* Define Dark Mode Colors using CSS Variables (Good Practice) */
-:root {
-    /* Fallback for non-dark mode, though these variables are for the dark theme */
-    --color-dark-background-page: #121212;
-    --color-dark-background-surface: #1e1e1e;
-    --color-dark-text-primary: #e0e0e0;
-    --color-dark-text-secondary: #b0b0b0;
-    --color-dark-border-default: #3a3a3a;
-    --color-dark-border-hover: #505050;
-    --color-dark-border-focus: #007bff;
-    /* Example focus color (blue) */
-    --color-dark-placeholder: #888;
-
-    /* Locked/Read-only specific colors in dark mode */
-    --color-dark-locked-background: #2a2a2a;
-    /* Slightly lighter/different dark */
-    --color-dark-locked-text: #999;
-    /* More muted text */
-    --color-dark-locked-border: #444;
-    /* Different border for locked state */
+#card {
+  background-color: var(--blue);
+  font-family: Geologica;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  width: 300px;
+  height: 200px;
+  padding: 15px 25px;
+  border-radius: 30px;
 }
 
 /* --- Base Textarea Styles for Dark Mode --- */
 textarea {
-    /* Basic layout and appearance */
-    display: block;
-    /* Makes it take full width if inside a block container */
-    width: 100%;
-    padding: 0.8em 1em;
-    /* Padding inside the textarea */
-    border: 1px solid var(--color-dark-border-default);
-    border-radius: 5px;
-    /* Slightly rounded corners */
-    box-sizing: border-box;
-    /* Include padding and border in element's total width/height */
-    font-family: inherit;
-    /* Inherit font from body or parent */
-    font-size: 1rem;
-    /* Responsive font size */
-    line-height: 1.5;
-    /* Standard line height for readability */
-    resize: vertical;
-    /* Allow vertical resizing by default (or 'none' to disable) */
+  /* Basic layout and appearance */
+  display: block;
+  /* Makes it take full width if inside a block container */
+  width: 100%;
+  padding: 0.8em 1em;
+  /* Padding inside the textarea */
+  border: 1px solid var(--night);
+  border-radius: 5px;
+  /* Slightly rounded corners */
+  box-sizing: border-box;
+  /* Include padding and border in element's total width/height */
+  font-family: inherit;
+  /* Inherit font from body or parent */
+  font-size: 1rem;
+  /* Responsive font size */
+  line-height: 1.5;
+  /* Standard line height for readability */
+  resize: vertical;
+  /* Allow vertical resizing by default (or 'none' to disable) */
 
-    /* Dark Mode Colors */
-    background-color: var(--color-dark-background-surface);
-    color: var(--color-dark-text-primary);
+  /* Dark Mode Colors */
+  background-color: var(--night);
+  color: var(--white);
 
-    /* Smooth transition for user interaction */
-    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  /* Smooth transition for user interaction */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 
-    /* Optional: Remove default browser styling */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+  /* Optional: Remove default browser styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 /* Placeholder text color in dark mode */
 textarea::placeholder {
-    color: var(--color-dark-placeholder);
-    opacity: 1;
-    /* Ensure opacity is not reduced by some browsers */
+  color: var(--lightBlue);
+  opacity: 1;
+  /* Ensure opacity is not reduced by some browsers */
 }
 
 /* Focus state styles in dark mode */
 textarea:focus {
-    outline: none;
-    /* Remove default outline */
-    border-color: var(--color-dark-border-focus);
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    /* Subtle glow */
-}
-
-/* --- Styles for the "Locked" (Read-only or Disabled) State in Dark Mode --- */
-textarea:read-only,
-textarea:disabled {
-    /* Change appearance to indicate it's not editable */
-    background-color: var(--color-dark-locked-background);
-    color: var(--color-dark-locked-text);
-    border-color: var(--color-dark-locked-border);
-    cursor: default;
-    /* Indicate non-interactive */
-    resize: none;
-    /* Disable manual resizing when locked */
-    box-shadow: none;
-    /* Remove focus glow if it was focused before locking */
-    outline: none;
-    /* Ensure no outline/focus ring */
-
-    /* Optional: More muted placeholder for disabled */
-    &::placeholder {
-        color: var(--color-dark-text-secondary);
-        /* Use a secondary/muted text color */
-    }
-}
-
-/* Ensure disabled elements don't allow pointer events if needed (usually handled by :disabled) */
-textarea:disabled {
-    pointer-events: none;
+  outline: none;
+  /* Remove default outline */
+  border-color: var(--gold);
+  box-shadow: 0 0 0 0.2rem rgba(255, 213, 0, 0.25);
+  /* Subtle glow */
 }

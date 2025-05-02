@@ -1,16 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>_ Lernen</title>
-    <link rel="stylesheet" href="style/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&amp;display=swap" rel="stylesheet">
-</head>
+    <link rel="stylesheet" href="style/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
-    <h1>Flippy</h1>
-</body>
+  <body>
+    <a href="index.html">
+      <h1>Flippy</h1>
+    </a>
+    <div id="card"></div>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const lernsetName = urlParams.get("lernset");
+      const lernsetCards = JSON.parse(localStorage.getItem(`${lernsetName}`));
+      const card = document.getElementById("card");
+      document.title = lernsetName;
+      let counter = 0;
+      let asking = true;
 
+      setCard(lernsetCards[counter++ % lernsetCards.length]);
+      card.addEventListener("click", () => {
+        setCard(lernsetCards[counter++ % lernsetCards.length]);
+      });
+
+      function setCard(data) {
+        const quest = data.quest;
+        const answ = data.answ;
+        if (asking) {
+          card.innerHTML = quest;
+        } else {
+          card.innerHTML = answ;
+        }
+        asking = !asking;
+      }
+    </script>
+  </body>
 </html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <title>- select Learnset</title>
+  </head>
+  <body>
+    <a href="index.html">
+      <h1>Flippy</h1>
+    </a>
+    <div id="lernSetWrapper"></div>
+    <script>
+      const lernSetWrapper = document.getElementById("lernSetWrapper");
+      const lernSets = JSON.parse(localStorage.getItem("Lernsets"));
+      console.log(lernSets);
+      lernSets.forEach((lernSet) => {
+        const lernSetElem = document.createElement("div");
+        lernSetElem.innerText = lernSet;
+        lernSetElem.className = "lernset";
+        lernSetWrapper.appendChild(lernSetElem);
+        lernSetElem.addEventListener("click", () => {
+          console.log("outch");
+          window.location.assign(`./learn.html?lernset=${lernSet}`);
+        });
+      });
+    </script>
+  </body>
+</html>
