@@ -6,6 +6,12 @@
   --gold: #efb662;
   --lightBlue: #7dcfff;
   --blue: #7aa2f7;
+  --light-gold: #52bdef;
+  --dark-gray: #333;
+  --light-gray: #f4f4f4;
+  --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --transition-duration: 0.2s;
+  --transition-easing: ease-in-out;
 }
 
 body {
@@ -13,12 +19,12 @@ body {
   color: var(--white);
   display: flex;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
-  overflow: hidden;
+  overflow-x: hidden;
   font-family: Geologica;
+  font-size: 1.2rem;
 }
 
 a {
@@ -33,19 +39,47 @@ a:visited {
 
 h1 {
   font-size: 3rem;
-  margin-bottom: 50;
+  margin-bottom: 175px;
 }
 
 button {
   background-color: var(--blue);
   color: var(--white);
-  font-size: 2rem;
+  font-size: 1.5rem;
   border: none;
   margin: 10px;
   cursor: pointer;
+  padding: 15px 25px;
+  border-radius: 20px;
+  transition: all 0.3s ease; /* Sanfte Übergangszeit und -funktion */
+}
+
+button:hover {
+  background-color: var(--gold);
 }
 
 #cardWrapper {
+  background-color: var(--night);
+  color: var(--white);
+  font-family: Geologica;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80vw;
+}
+
+.lernset {
+  background-color: var(--blue);
+  margin: 25px;
+  padding: 15px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+#lernSet {
+  background-color: var(--blue);
+}
+#lernSetWrapper {
   background-color: var(--night);
   color: var(--white);
   font-family: Geologica;
@@ -57,17 +91,9 @@ button {
   width: 80vw;
 }
 
-.lernset {
-  background-color: var(--blue);
-  margin: 25px;
-  padding: 15px 25px;
-  border-radius: 25px;
-}
-#lernSet {
-  background-color: var(--blue);
-}
-
 .card {
+  width: 90%;
+  max-width: 750px;
   margin-bottom: 25px;
 }
 #card {
@@ -82,55 +108,123 @@ button {
   height: 200px;
   padding: 15px 25px;
   border-radius: 30px;
+  cursor: pointer;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="url"],
+textarea,
+select {
+  font-family: Geologica;
+  font-size: 1.2rem;
+  padding: 15px 25px;
+  border-radius: 15px;
+  border: 2px solid var(--gold);
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
+  box-shadow: var(--shadow);
+  transition: border-color var(--transition-duration) var(--transition-easing),
+    box-shadow var(--transition-duration) var(--transition-easing);
+  width: 100%; /* Macht die Eingabefelder standardmäßig über die volle Breite ihres Containers */
+  box-sizing: border-box; /* Verhindert, dass Padding und Border die Breite beeinflussen */
 }
 
-/* --- Base Textarea Styles for Dark Mode --- */
-textarea {
-  /* Basic layout and appearance */
-  display: block;
-  /* Makes it take full width if inside a block container */
-  width: 100%;
-  padding: 0.8em 1em;
-  /* Padding inside the textarea */
-  border: 1px solid var(--night);
-  border-radius: 5px;
-  /* Slightly rounded corners */
-  box-sizing: border-box;
-  /* Include padding and border in element's total width/height */
-  font-family: inherit;
-  /* Inherit font from body or parent */
-  font-size: 1rem;
-  /* Responsive font size */
-  line-height: 1.5;
-  /* Standard line height for readability */
-  resize: vertical;
-  /* Allow vertical resizing by default (or 'none' to disable) */
-
-  /* Dark Mode Colors */
-  background-color: var(--night);
-  color: var(--white);
-
-  /* Smooth transition for user interaction */
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-
-  /* Optional: Remove default browser styling */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: #999;
+  opacity: 1; /* Firefox */
 }
 
-/* Placeholder text color in dark mode */
-textarea::placeholder {
-  color: var(--lightBlue);
-  opacity: 1;
-  /* Ensure opacity is not reduced by some browsers */
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder,
+select:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #999;
 }
 
-/* Focus state styles in dark mode */
-textarea:focus {
+input::-ms-input-placeholder,
+textarea::-ms-input-placeholder,
+select::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #999;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none; /* Entfernt den Standard-Fokus-Umriss */
+  border: solid 4px;
+  border-color: var(--light-gold); /* Hellere Goldfarbe im Fokus */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Intensiverer Schatten im Fokus */
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border: solid 2px;
+  border-color: var(--light-gold); /* Sanfte Farbänderung beim Hover */
+}
+
+/* Spezifische Stile für Buttons (optional, falls du Input-Felder als Buttons verwendest) */
+input[type="submit"],
+input[type="reset"],
+button {
+  font-size: 1.2rem;
+  padding: 15px 25px;
+  border-radius: 15px;
+  border: 2px solid var(--gold);
+  background-color: var(--gold);
+  color: white;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background-color var(--transition-duration)
+      var(--transition-easing),
+    box-shadow var(--transition-duration) var(--transition-easing);
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+button:hover {
+  background-color: var(--light-gold);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+button:focus {
   outline: none;
-  /* Remove default outline */
-  border-color: var(--gold);
-  box-shadow: 0 0 0 0.2rem rgba(255, 213, 0, 0.25);
-  /* Subtle glow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+input[type="submit"]:active,
+input[type="reset"]:active,
+button:active {
+  transform: translateY(1px); /* Leichter "Eindrück"-Effekt beim Klicken */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Zusätzliche Stile für Select-Felder */
+select {
+  appearance: none; /* Entfernt die Standard-Dropdown-Pfeile */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 1em;
+  padding-right: 40px; /* Platz für den Pfeil */
+}
+
+select::-ms-expand {
+  /* Für Internet Explorer */
+  display: none;
+}
+
+/* Stile für Textareas */
+textarea {
+  resize: vertical; /* Erlaubt vertikale Größenänderung */
+  min-height: 100px;
 }

@@ -25,9 +25,10 @@
       let counter = 0;
       let asking = true;
 
-      setCard(lernsetCards[counter++ % lernsetCards.length]);
+      setCard(lernsetCards[counter % lernsetCards.length]);
       card.addEventListener("click", () => {
-        setCard(lernsetCards[counter++ % lernsetCards.length]);
+        setCard(lernsetCards[counter % lernsetCards.length]);
+        if (asking) counter++;
       });
 
       function setCard(data) {
