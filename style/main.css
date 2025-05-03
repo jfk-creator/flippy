@@ -57,6 +57,25 @@ button:hover {
   background-color: var(--gold);
 }
 
+#editText {
+  display: none;
+  position: absolute;
+  background-color: var(--white);
+  border-radius: 15px;
+}
+#editText button {
+  background-color: var(--light-gold);
+  font-size: 1rem;
+  margin: 5px;
+  padding: 7px 13px;
+  border-radius: 10px;
+  transition: all 0.3s ease; /* Sanfte Übergangszeit und -funktion */
+}
+
+#editText button:hover {
+  background-color: var(--gold);
+}
+
 #cardWrapper {
   background-color: var(--night);
   color: var(--white);

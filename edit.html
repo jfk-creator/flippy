@@ -11,6 +11,11 @@
   </head>
 
   <body>
+    <div id="editText">
+      <button id="boldText">bold</button>
+      <button id="italicText">italic</button>
+      <button id="underlineText">underline</button>
+    </div>
     <a href="index.html">
       <h1>Flippy</h1>
     </a>
@@ -18,6 +23,10 @@
     <button id="addCard">+ Add Card</button>
 
     <script>
+      const editText = document.getElementById("editText");
+      const boldText = document.getElementById("boldText");
+      const italicText = document.getElementById("italicText");
+      const underlineText = document.getElementById("underlineText");
       const cardsWrapper = document.getElementById("cardWrapper");
       const addCard = document.getElementById("addCard");
       const urlParams = new URLSearchParams(window.location.search);
@@ -54,6 +63,31 @@
         appendCard(newCard);
       });
 
+      let selectedText = "";
+      let editTextOn = false;
+      document.addEventListener("mouseup", (event) => {
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+        if (window.getSelection) {
+          selectedText = window.getSelection().toString();
+          if (selectedText != "" && !editTextOn) {
+            editText.style.display = "block";
+            editText.style.top = mouseY + 70 + "px";
+            editText.style.left = mouseX - 50 + "px";
+
+            editTextOn = true;
+          } else {
+            editTextOn = false;
+            editText.style.display = "none";
+          }
+        } else {
+          selectedText = window.getSelection().toString();
+        }
+      });
+      let currentTextarea;
+      boldText.addEventListener("click", () => {
+        makeItBold(currentTextarea);
+      });
       function appendCard(rcard) {
         let cardWrapper = document.createElement("div");
         cardWrapper.className = "card";
@@ -71,11 +105,18 @@
         questCard.addEventListener("input", () => {
           saveCards();
         });
+        questCard.addEventListener("mouseup", (event) => {
+          currentTextarea = questCard;
+          event.preventDefault();
+        });
         answCard.addEventListener("input", () => {
           saveCards();
         });
+        answCard.addEventListener("mouseup", (event) => {
+          currentTextarea = answCard;
+          event.preventDefault();
+        });
       }
-
       function saveCards() {
         const onCards = document.getElementsByClassName("card");
         cards = [];
@@ -90,6 +131,29 @@
           cards.push(wCard);
         }
         localStorage.setItem(`${lernsetName}`, JSON.stringify(cards));
+      }
+
+      function makeItBold(textarea) {
+        const selectedText = textarea.value.substring(
+          textarea.selectionStart,
+          textarea.selectionEnd
+        );
+        const beforeText = textarea.value.substring(0, textarea.selectionStart);
+        const afterText = textarea.value.substring(textarea.selectionEnd);
+        console.log("text selected: ", selectedText);
+        if (selectedText) {
+          const newText =
+            beforeText + "<b>" + selectedText + "</b>" + afterText;
+          textarea.value = newText;
+          const newCaretPosition =
+            beforeText.length +
+            "<b>".length +
+            selectedText.length +
+            "</b>".length;
+          textarea.selectionStart = newCaretPosition;
+          textarea.selectionEnd = newCaretPosition;
+          textarea.focus();
+        }
       }
     </script>
   </body>
