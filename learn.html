@@ -15,31 +15,89 @@
     <a href="index.html">
       <h1>Flippy</h1>
     </a>
-    <div id="card"></div>
+    <div id="card">
+      <p id="cardText"></p>
+      <div id="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+      </div>
+    </div>
+    <div id="choose">
+      <button id="turn">TURN</button>
+      <button id="wrong">NOPE</button>
+      <button id="right">YEP</button>
+    </div>
     <script>
+      const learntyp = 0;
       const urlParams = new URLSearchParams(window.location.search);
       const lernsetName = urlParams.get("lernset");
       const lernsetCards = JSON.parse(localStorage.getItem(`${lernsetName}`));
       const card = document.getElementById("card");
+      const cardText = document.getElementById("cardText");
+      const turn = document.getElementById("turn");
+      const wrong = document.getElementById("wrong");
+      const right = document.getElementById("right");
+      const choose = document.getElementById("choose");
+      const bubbles = document.getElementsByClassName("bubble");
+      const bubblesWrapper = document.getElementById("bubbles");
       document.title = lernsetName;
       let counter = 0;
-      let asking = true;
+      let isQuestion = true;
+      setCard(lernsetCards[counter % lernsetCards.length], true);
 
-      setCard(lernsetCards[counter % lernsetCards.length]);
-      card.addEventListener("click", () => {
-        setCard(lernsetCards[counter % lernsetCards.length]);
-        if (asking) counter++;
+      turn.addEventListener("click", () => {
+        setCard(lernsetCards[counter % lernsetCards.length], false);
       });
 
-      function setCard(data) {
+      wrong.addEventListener("click", () => {
+        let data = lernsetCards[(counter - 1) % lernsetCards.length];
+        data.points -= 1;
+        if (data.points < -3) data.points = -3;
+        setCard(lernsetCards[counter % lernsetCards.length], true);
+        localStorage.setItem(lernsetName, JSON.stringify(lernsetCards));
+      });
+      right.addEventListener("click", () => {
+        let data = lernsetCards[(counter - 1) % lernsetCards.length];
+        data.points += 1;
+        if (data.points > 2) data.points = 2;
+
+        setCard(lernsetCards[counter % lernsetCards.length], true);
+        localStorage.setItem(lernsetName, JSON.stringify(lernsetCards));
+      });
+
+      function setCard(data, asking) {
         const quest = data.quest;
         const answ = data.answ;
-        if (asking) {
-          card.innerHTML = quest;
-        } else {
-          card.innerHTML = answ;
+        const points = data.points + 3;
+        cardCounter = 0;
+        console.log(counter, points);
+        for (let i = 0; i < bubbles.length; i++) {
+          const bubble = bubbles[i];
+          if (i < points) {
+            bubble.style.backgroundColor = "#9ece6a"; // Green
+          } else {
+            bubble.style.backgroundColor = "#ff757f"; // Red
+          }
         }
-        asking = !asking;
+        if (asking) {
+          wrong.style.display = "none";
+          right.style.display = "none";
+          turn.style.display = "block";
+          bubblesWrapper.style.display = "none";
+          cardText.innerHTML = quest;
+        } else {
+          isQuestion = false;
+          wrong.style.display = "block";
+          right.style.display = "block";
+          turn.style.display = "none";
+          bubblesWrapper.style.display = "flex";
+
+          cardText.innerHTML = answ;
+          counter++;
+        }
       }
     </script>
   </body>

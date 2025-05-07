@@ -34,8 +34,9 @@
       const lernsetCards = localStorage.getItem(`${lernsetName}`);
       let firstFocus = false;
       let card = {
-        quest: "Is this a question?",
-        answ: "Yes, and this is the answer.",
+        quest: "Frage 1",
+        answ: "Antwort 1",
+        points: 0,
       };
 
       document.title = lernsetName;
@@ -46,6 +47,7 @@
           cards = JSON.parse(storedCards);
         } else {
           cards.push(card);
+          localStorage.setItem(lernsetName, JSON.stringify(cards));
         }
       }
 
@@ -55,10 +57,12 @@
 
       addCard.addEventListener("click", () => {
         let newCard = {
-          quest: "Is this a question?",
-          answ: "Yes, and this is the answer.",
+          quest: "Frage " + (cards.length + 1),
+          answ: "Antwort " + (cards.length + 1),
+          points: 0,
         };
         cards.push(newCard);
+
         localStorage.setItem(lernsetName, JSON.stringify(cards));
         appendCard(newCard);
       });

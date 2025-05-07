@@ -56,6 +56,12 @@ button {
 button:hover {
   background-color: var(--gold);
 }
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
 
 #editText {
   display: none;
@@ -107,6 +113,7 @@ button:hover {
   flex-direction: column;
   overflow: hidden;
   width: 80vw;
+  max-width: 500px;
 }
 
 .card {
@@ -119,7 +126,7 @@ button:hover {
   font-family: Geologica;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   overflow: hidden;
   width: 300px;
@@ -127,6 +134,36 @@ button:hover {
   padding: 15px 25px;
   border-radius: 30px;
   cursor: pointer;
+}
+#choose {
+  background-color: var(--blue);
+  font-family: Geologica;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  overflow: hidden;
+  width: 300px;
+  height: 75px;
+  margin-top: 25px;
+  padding: 15px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+#turn {
+  width: 80%;
+}
+#bubbles {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.bubble {
+  width: 10px;
+  height: 10px;
+  background-color: var(--red);
+  border-radius: 10px;
 }
 input[type="text"],
 input[type="email"],
